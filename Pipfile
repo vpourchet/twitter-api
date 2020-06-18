@@ -11,6 +11,7 @@ nose = "*"
 flask = "*"
 gunicorn = "*"
 nose = "*"
+flask-restx = "*"
 
 [requires]
 python_version = "3.7"
