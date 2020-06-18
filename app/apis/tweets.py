@@ -23,3 +23,27 @@ class TweetResource(Resource):
             api.abort(404)
         else:
             return tweet
+    @api.marshal_with(tweet)
+    def post(self, tweet):
+        if tweet is None:
+            api.abort(404)
+        else:
+            repository.post(tweet)
+            return repository.get(tweet.id)
+    @api.marshal_with(tweet)
+    def delete(self, tweet):
+        if tweet is None:
+            api.abort(404)
+        else:
+            repository.delete(tweet)
+            return 200
+    @api.marshal_with(tweet)
+    def patch(self, tweet):
+        if tweet is None:
+            api.abort(404)
+        else:
+            for tweet in repository.tweets:
+                if tweet == tweet:
+                    repository.tweets[tweet.id] = tweet
+            return 200
+
