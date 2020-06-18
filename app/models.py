@@ -7,8 +7,7 @@ class Tweet:
 
 class Repository:
     def __init__(self):
-        self.tweets = []
-        self.next_id = 1
+        self.clear()
     def add(self, tweet):
         self.tweets.append(tweet)
         tweet.id = self.next_id
@@ -18,3 +17,6 @@ class Repository:
           if tweet.id == id:
               return tweet
         return None
+    def clear(self):
+        self.tweets = []
+        self.next_id = 1
