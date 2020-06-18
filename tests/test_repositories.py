@@ -19,4 +19,9 @@ class TestRepository(TestCase):
         tweet2 = Tweet("Tirelipimpon sur le Chihuahua.")
         repository.add(tweet2)
         self.assertEqual(tweet2.id, 2)
-
+    def test_get(self):
+        repository = Repository()
+        tweet = Tweet("Le gras c'est la vie.")
+        repository.add(tweet)
+        self.assertEqual(tweet, repository.get(1))
+        self.assertIsNone(repository.get(2))
