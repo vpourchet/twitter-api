@@ -12,6 +12,10 @@ flask = "*"
 gunicorn = "*"
 nose = "*"
 flask-restx = "*"
+psycopg2-binary = "*"
+flask-sqlalchemy = "*"
+flask-migrate = "*"
+flask-script = "*"
 
 [requires]
 python_version = "3.7"
