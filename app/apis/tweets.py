@@ -40,7 +40,7 @@ class TweetResource(Resource):
             return tweet, 201
         else:
             return abort(422, "Tweet text can't be empty")
-    @api.marshal_with(tweet)
+    @api.marshal_with(json_tweet)
     def delete(self, id):
         tweet = repository.get(id)
         if tweet is None:
