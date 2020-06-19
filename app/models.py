@@ -20,3 +20,5 @@ class Repository:
     def clear(self):
         self.tweets = []
         self.next_id = 1
+    def remove(self, id):
+        self.tweets = [tweet for tweet in self.tweets if tweet.id != id]
