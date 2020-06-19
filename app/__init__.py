@@ -2,20 +2,23 @@
 from flask import Flask # This line already exists
 from flask_restx import Api
 
-from .db import repository
-from .models import Tweet
-from .apis.tweets import api as tweets
+from flask_sqlalchemy import SQLAlchemy
 
-repository.add(Tweet("My tweet 1"))
-repository.add(Tweet("My tweet 2"))
+db = SQLAlchemy()
 
 def create_app():
     app = Flask(__name__)
 
-    @app.route('/hello')
-    def hello():
-        return "Hello World!"
+    from config import Config
+    app.config.from_object(Config)
 
+    db.init_app(app)
+
+   #@app.route('/hello')
+   # def hello():
+   #    return "Hello World!"
+
+    from .apis.tweets import api as tweets
     api = Api()
     api.add_namespace(tweets)
     api.init_app(app)
