@@ -1,7 +1,7 @@
 # tests/apis/test_tweet_views.py
 from flask_testing import TestCase
 from app import create_app, db
-from app.models import Tweet
+from app.models import Tweet, User
 
 class TestTweetViews(TestCase):
     def create_app(self):
@@ -51,3 +51,18 @@ class TestTweetViews(TestCase):
         db.session.commit()
         self.client.delete("/tweets/1")
         self.assertIsNone(db.session.query(Tweet).get(1))
+
+    def test_get_all_tweets(self):
+        user = User(username='vpourchet')
+        first_tweet = Tweet(text="Tweet1", user=user)
+        second_tweet = Tweet(text="Tweet2", user=user)
+        db.session.add(first_tweet)
+        db.session.add(second_tweet)
+        db.session.commit()
+        response = self.client.get("/tweets")
+        tweets = response.json
+        self.assertEqual(type(tweets), list)
+        self.assertEqual(tweets[0]['text'], "Tweet1")
+        self.assertEqual(tweets[0]['user']['username'], "vpourchet")
+        self.assertEqual(tweets[1]['text'], "Tweet2")
+        self.assertEqual(tweets[1]['user']['username'], "vpourchet")

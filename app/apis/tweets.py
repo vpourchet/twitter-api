@@ -6,10 +6,18 @@ from app import db
 
 api = Namespace('tweets')
 
+class JsonUser(fields.Raw):
+    def format(self, value):
+        return {
+            'username': value.username,
+            'email': value.email
+        }
+
 json_tweet = api.model('Tweet', {
     'id': fields.Integer,
     'text': fields.String,
-    'created_at': fields.DateTime
+    'created_at': fields.DateTime,
+    'user': JsonUser
 })
 
 json_new_tweet = api.model('New tweet', {
